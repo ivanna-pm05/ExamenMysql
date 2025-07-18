@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS pais(
 ) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS ciudad(
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY,
+    nombre VARCHAR(40),
     pais_id INT,
     ultima_actualizacion TIMESTAMP,
     CONSTRAINT FK_paisid FOREIGN KEY (pais_id) REFERENCES pais(id)
@@ -35,6 +36,7 @@ CREATE TABLE IF NOT EXISTS actor(
 
 CREATE TABLE IF NOT EXISTS categoria(
     id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(45),
     ultima_actualizacion TIMESTAMP
 ) ENGINE = INNODB;
 
@@ -51,15 +53,17 @@ CREATE TABLE IF NOT EXISTS film_text(
 ) ENGINE = INNODB;
 
 CREATE TABLE IF NOT EXISTS pelicula(
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY,
     titulo VARCHAR(255),
     description TEXT,
     anyo_lanzamiento YEAR,
     idioma_id INT,
     duracion_alquiler INT,
-    rental_rate DECIMAL(10, 2),
+    rental_rate DECIMAL(4, 2),
     duracion INT,
-    replacement_cost DECIMAL(10, 2),
+    replacement_cost DECIMAL(5, 2),
+    clasificacion ENUM("G","PG-13","R","NC-17"),
+    caracteristicas_especiales SET('Trailers','Commentaries','Deleted Scenes','Behind the Scenes'),
     ultima_actualizacion TIMESTAMP,
     CONSTRAINT FK_idiomaid FOREIGN KEY(idioma_id) REFERENCES idioma(id)
 ) ENGINE = INNODB;
